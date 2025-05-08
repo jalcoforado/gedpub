@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block title %}Lista de Processos{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h2><i class="bi bi-journal-text"></i> Processos</h2>
+  <a href="{% url 'novo_processo' %}" class="btn btn-primary">
+    <i class="bi bi-plus-circle"></i> Novo Processo
+  </a>
+  <a href="{% url 'lista_processos' %}" class="btn btn-secondary ms-2">
+    Cancelar
+  </a>
+  
+</div>
+<table class="table table-hover table-bordered align-middle">
+  <thead class="table-dark">
+    <tr>
+      <th>Número</th>
+      <th>Tipo</th>
+      <th>Status</th>
+      <th>Setor de Origem</th>
+      <th>Data de Criação</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for processo in processos %}
+    <tr>
+      <td>{{ processo.numero }}</td>
+      <td>{{ processo.tipo }}</td>
+      <td>
+        <span class="badge bg-secondary">{{ processo.status }}</span>
+      </td>
+      <td>{{ processo.setor_origem.nome }}</td>
+      <td>{{ processo.criado_em|date:"d/m/Y H:i" }}</td>
+      <td>
+        <a href="{% url 'detalhe_processo' processo.pk %}">
+          {{ processo.numero }}
+        </a>
+      </td>
+      
+    </tr>
+    {% empty %}
+    <tr>
+      <td colspan="5" class="text-center">Nenhum processo cadastrado.</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

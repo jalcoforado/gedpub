@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Novo Processo{% endblock %}
+{% load form_filters %}
+{% block content %}
+<h2 class="mb-4"><i class="bi bi-plus-circle"></i> Cadastrar Novo Processo</h2>
+
+<form method="post">
+  {% csrf_token %}
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Número</label>
+      {{ form.numero|add_class:"form-control" }}
+    </div>
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Tipo</label>
+      {{ form.tipo|add_class:"form-control" }}
+    </div>
+  </div>
+  <div class="mb-3">
+    <label class="form-label">Assunto</label>
+    {{ form.assunto|add_class:"form-control" }}
+  </div>
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Setor de Origem</label>
+      {{ form.setor_origem|add_class:"form-select" }}
+    </div>
+    <div class="col-md-6 mb-3">
+      <label class="form-label">Status</label>
+      {{ form.status|add_class:"form-select" }}
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success">
+    <i class="bi bi-check-circle"></i> Salvar
+  </button>
+  <a href="{% url 'lista_processos' %}" class="btn btn-secondary ms-2">
+    Cancelar
+  </a>
+</form>
+{% endblock %}
